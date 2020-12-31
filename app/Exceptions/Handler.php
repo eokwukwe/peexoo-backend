@@ -2,8 +2,10 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
@@ -25,6 +27,52 @@ class Handler extends ExceptionHandler
         'password',
         'password_confirmation',
     ];
+
+    /**
+     * Report or log an exception.
+     *
+     * @param  \Throwable  $exception
+     * @return void
+     *
+     * @throws \Exception
+     */
+    public function report(Throwable $e)
+    {
+        parent::report($e);
+    }
+
+    /**
+     * Render an exception into an HTTP response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Throwable  $exception
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws \Throwable
+     */
+    public function render($request, Throwable $exception)
+    {
+        if ($request->expectsJson()) {
+            if ($exception instanceof ModelNotFoundException) {
+                return response()->json([
+                    'errors' => [
+                        'message' => 'Resource not found'
+                    ]
+                ], 404);
+            }
+
+            if ($exception instanceof AuthorizationException) {
+                return response()->json([
+                    'errors' => [
+                        'message' => 'You are not authorized to access this resource'
+                    ]
+                ], 403);
+            }
+        }
+
+        return parent::render($request, $exception);
+    }
+
 
     /**
      * Register the exception handling callbacks for the application.
