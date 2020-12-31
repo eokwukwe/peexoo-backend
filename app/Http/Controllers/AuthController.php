@@ -19,12 +19,6 @@ class AuthController extends Controller
      */
     public function register(AuthsRequest $request)
     {
-        $request->validate([
-            'name' => ['required'],
-            'email' => ['required', 'email', 'unique:users'],
-            'password' => ['required', 'min:8', 'confirmed'],
-        ]);
-
         User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -38,11 +32,6 @@ class AuthController extends Controller
 
     public function login(AuthsRequest $request)
     {
-        $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required']
-        ]);
-
         $user = User::where('email', $request->email)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {

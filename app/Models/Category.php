@@ -15,4 +15,9 @@ class Category extends Model
      * @var array
      */
     protected $fillable = ['name'];
+
+    public function businesses()
+    {
+        return $this->belongsToMany(Business::class);
+    }
 }
