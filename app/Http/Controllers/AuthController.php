@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\AuthsRequest;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
@@ -12,12 +13,8 @@ class AuthController extends Controller
 {
     /**
      * Register a new user
-     *
-     * @param  Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\JsonResponse
      */
-    public function register(AuthsRequest $request)
+    public function register(AuthsRequest $request): JsonResponse
     {
         User::create([
             'name' => $request->name,
@@ -30,7 +27,10 @@ class AuthController extends Controller
         ], 201);
     }
 
-    public function login(AuthsRequest $request)
+    /**
+     * Login a user and issue token
+     */
+    public function login(AuthsRequest $request): JsonResponse
     {
         $user = User::where('email', $request->email)->first();
 
@@ -47,7 +47,11 @@ class AuthController extends Controller
         ]);
     }
 
-    public function logout(Request $request)
+
+    /**
+     * Log out a user
+     */
+    public function logout(Request $request): JsonResponse
     {
         $request->user()->tokens()->delete();
 

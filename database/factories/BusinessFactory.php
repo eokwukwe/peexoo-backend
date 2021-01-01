@@ -28,7 +28,8 @@ class BusinessFactory extends Factory
             'description' => $faker->sentence(),
             'address' => $faker->address(),
             'email' => $faker->unique()->freeEmail,
-            'phone_1' => $faker->unique()->phoneNumber
+            'phone_1' => $faker->unique()->phoneNumber,
+            'active' => rand(0, 1),
         ];
     }
 }

@@ -20,11 +20,8 @@ class CategoryController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\CategoryRequest  $request
-     * @return \App\Http\Resources\CategoryResource
      */
-    public function store(CategoryRequest $request)
+    public function store(CategoryRequest $request): CategoryResource
     {
         $category = Category::create(['name' => $request->name]);
 
@@ -33,24 +30,19 @@ class CategoryController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \App\Http\Resources\CategoryResource
      */
-    public function show(Category $category)
+    public function show(Category $category): CategoryResource
     {
         return new CategoryResource($category);
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\CategoryRequest  $request
-     * @param  \App\Models\Category  $category
-     * @return \App\Http\Resources\CategoryResource
      */
-    public function update(CategoryRequest $request, Category $category)
-    {
+    public function update(
+        CategoryRequest $request,
+        Category $category
+    ): CategoryResource {
         $category->update(['name' => $request->name]);
 
         return new CategoryResource($category);

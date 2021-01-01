@@ -3,11 +3,13 @@
 namespace App\Services;
 
 use App\Models\Business;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\BusinessRequest;
 use App\Http\Resources\BusinessResource;
+use App\Http\Resources\BusinessCollection;
 
 class BusinessService
 {
@@ -19,6 +21,15 @@ class BusinessService
         $business->increment('views');
 
         return new BusinessResource($business);
+    }
+
+    /**
+     * Fetch all businesses including the inactive ones.
+     * This is only available to the admin
+     */
+    public function fetchBusinesses(): BusinessCollection
+    {
+        return new BusinessCollection(Business::all());
     }
 
     /**
@@ -108,5 +119,15 @@ class BusinessService
         return response()->json([
             'message' => $business->active == 1 ? 'Business listing has been activated' : 'Business listing has been deactivated'
         ], 200);
+    }
+
+    /**
+     * Search business listing by name and description
+     */
+    public function searchBusiness(Request $request): BusinessCollection
+    {
+        $results = Business::search($request)->active()->latest()->get();
+
+        return new BusinessCollection($results);
     }
 }

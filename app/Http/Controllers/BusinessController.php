@@ -7,6 +7,7 @@ use App\Services\BusinessService;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\BusinessRequest;
 use App\Http\Resources\BusinessResource;
+use App\Http\Resources\BusinessCollection;
 
 class BusinessController extends Controller
 {
@@ -19,12 +20,10 @@ class BusinessController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
-     * @return \App\Http\Resources\BusinessResource
      */
-    public function index()
+    public function index(): BusinessCollection
     {
-        return BusinessResource::collection(Business::all());
+        return $this->businessService->fetchBusinesses();
     }
 
     /**
