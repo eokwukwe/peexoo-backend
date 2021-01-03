@@ -105,6 +105,9 @@
             .text-lg {
                 font-size: 1.125rem;
             }
+            .text-xl {
+                font-size: 3.5rem;
+            }
             .leading-7 {
                 line-height: 1.75rem;
             }
@@ -328,9 +331,9 @@
             class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0"
         >
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-                <h1 class="text-gray-400">
-                    Welcome to peexoo online business directory API
-                </h1>
+                <p class="text-gray-400 text-xl">
+                    Welcome to peexoo business directory API
+                </p>
 
                 <div class="flex items-center">
                     <svg
@@ -356,6 +359,31 @@
                     </div>
                 </div>
 
+                <div>
+                    <h1 class="text-gray-400">
+                        Reports a platform owner should be seeing
+                    </h1>
+                    <ul class="text-gray-900 dark:text-white">
+                        <li>Business with the most search</li>
+                        <li>Business with the most view</li>
+                        <li>List of deactivated businesses</li>
+                        <li>
+                            Total number of businesses that was added each month
+                        </li>
+                        <li>Monthly revenue</li>
+                        <li>Total site visitors by region</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h1 class="text-gray-400">Possible additional features</h1>
+                    <ul class="text-gray-900 dark:text-white">
+                        <li>Ratings and reviews of businesses by users</li>
+                        <li>
+                            Ability for platform users to flag a business and log a report.
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </body>
