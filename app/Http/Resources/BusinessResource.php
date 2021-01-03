@@ -30,6 +30,7 @@ class BusinessResource extends JsonResource
                 Auth::user(),
                 CategoryResource::collection($this->categories)
             ),
+            'images' => ImageResource::collection($this->images),
             'createdAt'   => [
                 'forHuman'  => $this->created_at->diffForHumans(),
                 'timestamp' => $this->created_at
