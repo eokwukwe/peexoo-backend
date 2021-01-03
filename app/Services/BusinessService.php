@@ -29,7 +29,7 @@ class BusinessService
      */
     public function fetchBusinesses(): BusinessCollection
     {
-        return new BusinessCollection(Business::all());
+        return new BusinessCollection(Business::latest()->paginate());
     }
 
     /**
@@ -126,7 +126,7 @@ class BusinessService
      */
     public function searchBusiness(Request $request): BusinessCollection
     {
-        $results = Business::search($request)->active()->latest()->get();
+        $results = Business::search($request)->active()->latest()->paginate();
 
         return new BusinessCollection($results);
     }
